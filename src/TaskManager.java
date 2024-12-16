@@ -5,12 +5,13 @@ public class TaskManager {
     private HashMap<Integer, Task> tasks;
     private HashMap<Integer, Epic> epics;
     private HashMap<Integer, Subtask> subtasks;
-    private static int currentId;
+    private int currentId;
 
     TaskManager(){
         tasks = new HashMap<Integer, Task>();
         epics = new HashMap<Integer, Epic>();
         subtasks = new HashMap<Integer, Subtask>();
+        currentId = 0;
     }
 
     //получение списка всех задач
@@ -39,11 +40,21 @@ public class TaskManager {
     }
 
     //удаление всех задач
-    public void clearAll(){
+    public void clearTasks(){
         tasks.clear();
-        subtasks.clear();
+    }
+
+    public void clearEpics(){
         epics.clear();
-        currentId = 0;
+        subtasks.clear();
+    }
+
+    public void clearSubtasks(){
+        subtasks.clear();
+        for (Epic epic : epics.values()){
+            epic.clearSubtasks();
+            epic.updateStatus();
+        }
     }
 
     //получение по идентификатору
@@ -61,16 +72,22 @@ public class TaskManager {
 
     //создание новых задач
     public void makeNewTask(Task task){
-        tasks.put(task.getId(), task);
+        int id = getNewId();
+        task.setId(id);
+        tasks.put(id, task);
     }
 
     public void makeNewEpic(Epic task){
-        epics.put(task.getId(), task);
+        int id = getNewId();
+        task.setId(id);
+        epics.put(id, task);
     }
 
     public void makeNewSubtask(Subtask task){
         if (epics.containsKey(task.getEpic().getId())) {
-            subtasks.put(task.getId(), task);
+            int id = getNewId();
+            task.setId(id);
+            subtasks.put(id, task);
             Epic epic = task.getEpic();
             epic.addSubtaskToEpic(task);
             epic.updateStatus();
@@ -139,15 +156,15 @@ public class TaskManager {
         epics.remove(id);
     }
 
-    //генерация нового айди
-    public static  int getNewId(){
-        currentId += 1;
-        return currentId;
-    }
-
     //получение всех подзадач эпика
     public ArrayList<Subtask> getSubtasksByEpic(Epic epic){
         return epic.getSubtasks();
+    }
+
+    //генерация нового айди
+    private int getNewId(){
+        currentId += 1;
+        return currentId;
     }
 
 }

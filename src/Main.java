@@ -5,19 +5,19 @@ public class Main {
         System.out.println("Поехали!");
         //создание задач
         TaskManager taskManager = new TaskManager();
-        Task task1 = new Task("Составить список дел", "Первая задача", TaskManager.getNewId());
+        Task task1 = new Task("Составить список дел", "Первая задача", 0);
         taskManager.makeNewTask(task1);
-        Task task2 = new Task("Скорректировать список дел", "Вторая задача", TaskManager.getNewId());
+        Task task2 = new Task("Скорректировать список дел", "Вторая задача", 0);
         taskManager.makeNewTask(task2);
-        Epic epic1 = new Epic("Спринт 4", "Описание спринта", TaskManager.getNewId());
+        Epic epic1 = new Epic("Спринт 4", "Описание спринта", 0);
         taskManager.makeNewEpic(epic1);
-        Subtask subtask1 = new Subtask("Написать код", "Написать код подробно", TaskManager.getNewId(), epic1);
+        Subtask subtask1 = new Subtask("Написать код", "Написать код подробно", 0, epic1);
         taskManager.makeNewSubtask(subtask1);
-        Subtask subtask2 = new Subtask("Протестировать код", "Протестировать код подробно", TaskManager.getNewId(), epic1);
+        Subtask subtask2 = new Subtask("Протестировать код", "Протестировать код подробно", 0, epic1);
         taskManager.makeNewSubtask(subtask2);
-        Epic epic2 = new Epic("Переезд", "Описание переезда", TaskManager.getNewId());
+        Epic epic2 = new Epic("Переезд", "Описание переезда", 0);
         taskManager.makeNewEpic(epic2);
-        Subtask subtask3 = new Subtask("Собрать коробки", "Собрать все коробки", TaskManager.getNewId(), epic2);
+        Subtask subtask3 = new Subtask("Собрать коробки", "Собрать все коробки", 0, epic2);
         taskManager.makeNewSubtask(subtask3);
         printAll(taskManager);
 
@@ -48,6 +48,12 @@ public class Main {
         System.out.println("После удаления задач");
         printAll(taskManager);
 
+        //очищаем задачи и подзадачи
+        taskManager.clearTasks();
+        taskManager.clearSubtasks();
+        System.out.println("----------------------");
+        System.out.println("После удаления всех задач и подзадач");
+        printAll(taskManager);
     }
 
     private static void printAll(TaskManager taskManager){

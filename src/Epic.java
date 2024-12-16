@@ -32,6 +32,9 @@ public class Epic extends Task {
         subtasks.remove(subtask);
     }
 
+    public void clearSubtasks(){
+        subtasks.clear();
+    }
 
     public void updateStatus(){
         TaskStatus status = TaskStatus.IN_PROGRESS;
