@@ -4,36 +4,32 @@ public class Main {
 
         System.out.println("Поехали!");
         //создание задач
-        TaskManager taskManager = new TaskManager();
-        Task task1 = new Task("Составить список дел", "Первая задача", 0);
+        TaskManager taskManager = Managers.getDefault();
+        Task task1 = new Task("Составить список дел", "Первая задача", TaskStatus.NEW);
         taskManager.makeNewTask(task1);
-        Task task2 = new Task("Скорректировать список дел", "Вторая задача", 0);
+        Task task2 = new Task("Скорректировать список дел", "Вторая задача", TaskStatus.NEW);
         taskManager.makeNewTask(task2);
-        Epic epic1 = new Epic("Спринт 4", "Описание спринта", 0);
+        Epic epic1 = new Epic("Спринт 4", "Описание спринта");
         taskManager.makeNewEpic(epic1);
-        Subtask subtask1 = new Subtask("Написать код", "Написать код подробно", 0, epic1);
+        Subtask subtask1 = new Subtask("Написать код", "Написать код подробно", TaskStatus.NEW, epic1);
         taskManager.makeNewSubtask(subtask1);
-        Subtask subtask2 = new Subtask("Протестировать код", "Протестировать код подробно", 0, epic1);
+        Subtask subtask2 = new Subtask("Протестировать код", "Протестировать код подробно", TaskStatus.NEW, epic1);
         taskManager.makeNewSubtask(subtask2);
-        Epic epic2 = new Epic("Переезд", "Описание переезда", 0);
+        Epic epic2 = new Epic("Переезд", "Описание переезда");
         taskManager.makeNewEpic(epic2);
-        Subtask subtask3 = new Subtask("Собрать коробки", "Собрать все коробки", 0, epic2);
+        Subtask subtask3 = new Subtask("Собрать коробки", "Собрать все коробки", TaskStatus.NEW, epic2);
         taskManager.makeNewSubtask(subtask3);
         printAll(taskManager);
 
         //меняем задачи
-        Subtask subtask4 = new Subtask("Написать код", "Написать код подробно", 4, epic1);
-        subtask4.setStatus(TaskStatus.DONE);
+        Subtask subtask4 = new Subtask("Написать код", "Написать код подробно", TaskStatus.DONE, epic1, 4);
         taskManager.updateSubtask(subtask4);
-        Subtask subtask5 = new Subtask("Протестировать код", "Протестировать код подробно", 5, epic1);
-        subtask5.setStatus(TaskStatus.IN_PROGRESS);
-        Subtask subtask6 = new Subtask("Перееезд", "Сложить коробки в машину", 8, epic2);
-        subtask6.setStatus(TaskStatus.IN_PROGRESS);
+        Subtask subtask5 = new Subtask("Протестировать код", "Протестировать код подробно", TaskStatus.IN_PROGRESS, epic1, 5);
+        Subtask subtask6 = new Subtask("Перееезд", "Сложить коробки в машину", TaskStatus.IN_PROGRESS, epic2, 8);
         taskManager.updateSubtask(subtask6);
         Epic epic3 = new Epic("Спринт 4 с изменениями", "Описание спринта +", 3);
-        epic3.setStatus(TaskStatus.DONE);
         taskManager.updateEpic(epic3);
-        Task task3 = new Task("Составить список дел", "Первая задача с изменениями", 1);
+        Task task3 = new Task("Составить список дел", "Первая задача с изменениями", TaskStatus.NEW, 1);
         taskManager.updateTask(task3);
         System.out.println("----------------------");
         System.out.println("После обновления задач");
@@ -74,5 +70,11 @@ public class Main {
                 }
             }
         }
+
+        System.out.println("История:");
+        for (Task task : taskManager.getHistory()) {
+                System.out.println(task);
+            }
+
     }
 }

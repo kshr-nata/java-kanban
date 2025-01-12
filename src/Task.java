@@ -1,24 +1,57 @@
 import java.util.Objects;
 
 public class Task {
-    private final String name;
-    private final String description;
+    private String name;
+    private String description;
     private int id;
     private TaskStatus status;
 
-    Task(String name, String description, int id){
+    //конструктор для создания новых задач
+    Task(String name, String description, TaskStatus status){
         this.name = name;
         this.description = description;
-        this.status = TaskStatus.NEW;
+        this.status = status;
+        this.id = 0;
+    }
+
+    //конструктор для создания измененных задач
+    Task(String name, String description, TaskStatus status, int id){
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.id = id;
+    }
+
+    //конструктор для создания нового эпика
+    Task(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.id = 0;
+    }
+
+    //конструктор для создания измененного эпика
+    Task(String name, String description, int id) {
+        this.name = name;
+        this.description = description;
         this.id = id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (this.id == 0) {
+            this.id = id;
+        }
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public TaskStatus getStatus() {
