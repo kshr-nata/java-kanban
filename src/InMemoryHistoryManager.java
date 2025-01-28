@@ -7,6 +7,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         Task task;
         Node prev;
         Node next;
+
         Node(Task task, Node prev, Node next) {
             this.task = task;
             this.prev = prev;
@@ -32,7 +33,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public ArrayList<Task> getHistory() {
         final ArrayList history = new ArrayList();
         Node node = head;
-        while (node != null){
+        while (node != null) {
             history.add(node.task);
             node = node.next;
         }
