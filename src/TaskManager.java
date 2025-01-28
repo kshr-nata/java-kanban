@@ -46,6 +46,8 @@ public interface TaskManager {
 
     List<Task> getHistory();
 
+    HistoryManager getHistoryManager();
+
     //получение всех подзадач эпика
     ArrayList<Subtask> getSubtasksByEpic(Epic epic);
 }

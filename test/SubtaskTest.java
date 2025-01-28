@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,6 +49,15 @@ class SubtaskTest {
         final int subtaskId = taskManager.makeNewSubtask(subtask);
         taskManager.removeSubtask(subtaskId);
         assertEquals(0, taskManager.getAllSubtasks().size(),"Сабтаск не удаляется");
+
+        ArrayList<Subtask> subtasks = epic.getSubtasks();
+        Subtask foundSubtask = null;
+        for (Subtask currentSubtask : subtasks){
+            if(currentSubtask.equals(subtask)){
+                foundSubtask = currentSubtask;
+            }
+        }
+        assertEquals(null, foundSubtask, "Сабтаск не удаляется из подзадач эпика" );
     }
 
     @Test

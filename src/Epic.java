@@ -14,6 +14,11 @@ public class Epic extends Task {
         subtasks = new ArrayList<>();
     }
 
+    @Override
+    public void setStatus(TaskStatus status){
+
+    }
+
     public void addSubtaskToEpic(Subtask subtask){
         subtasks.add(subtask);
     }
