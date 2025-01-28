@@ -30,7 +30,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public ArrayList<Epic> getAllEpics() {
         ArrayList<Epic> epicArray = new ArrayList<>();
-        for (Epic epic : epics.values()){
+        for (Epic epic : epics.values()) {
             epicArray.add(epic);
         }
         return epicArray;
@@ -208,22 +208,21 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
+
     //получение всех подзадач эпика
     @Override
-
     public ArrayList<Subtask> getSubtasksByEpic(Epic epic) {
         return epic.getSubtasks();
     }
 
     @Override
-
     public HistoryManager getHistoryManager() {
         return historyManager;
     }
+
     //генерация нового айди
     private int getNewId() {
         currentId += 1;
