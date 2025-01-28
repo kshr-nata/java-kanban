@@ -52,14 +52,14 @@ public class Main {
         printAll(taskManager);
     }
 
-    private static void printAll(TaskManager taskManager){
-        for (Task task : taskManager.getAllTasks()){
+    private static void printAll(TaskManager taskManager) {
+        for (Task task : taskManager.getAllTasks()) {
             System.out.println(task);
         }
-        for (Subtask subtask : taskManager.getAllSubtasks()){
+        for (Subtask subtask : taskManager.getAllSubtasks()) {
             System.out.println(subtask);
         }
-        for (Epic epic : taskManager.getAllEpics()){
+        for (Epic epic : taskManager.getAllEpics()) {
             System.out.println(epic);
             if (epic.getSubtasks().isEmpty()){
                 System.out.println("Подзадачи эпика отсутствуют");

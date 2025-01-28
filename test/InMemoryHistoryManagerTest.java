@@ -9,7 +9,7 @@ class InMemoryHistoryManagerTest {
     Task task = new Task("Test addNewTask", "Test addNewTask description", TaskStatus.NEW);
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         taskManager = Managers.getDefault();
         historyManager = taskManager.getHistoryManager();
     }
@@ -35,7 +35,7 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void elementsShouldBeUniqe(){
+    void elementsShouldBeUniqe() {
         historyManager.add(task);
         final List<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не пустая.");
@@ -46,7 +46,7 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void elementShouldBeAddedInTail(){
+    void elementShouldBeAddedInTail() {
         taskManager.makeNewTask(task);
         historyManager.add(task);
         Task secondTask = new Task("Test elementsShouldBeUniqe", "Test elementsShouldBeUniqe description", TaskStatus.NEW);
@@ -58,7 +58,7 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldRemoveFromHistory(){
+    void shouldRemoveFromHistory() {
         taskManager.makeNewTask(task);
         historyManager.add(task);
         Task secondTask = new Task("Test elementsShouldBeUniqe", "Test elementsShouldBeUniqe description", TaskStatus.NEW);

@@ -11,7 +11,7 @@ class EpicTest {
     TaskManager taskManager;
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         taskManager = Managers.getDefault();
     }
 
@@ -37,7 +37,7 @@ class EpicTest {
     }
 
     @Test
-    void shouldRemoveEpic(){
+    void shouldRemoveEpic() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         final int epicId = taskManager.makeNewEpic(epic);
         taskManager.removeEpic(epicId);
@@ -46,7 +46,7 @@ class EpicTest {
     }
 
     @Test
-    void shouldClearEpics(){
+    void shouldClearEpics() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         final int epicId = taskManager.makeNewEpic(epic);
         taskManager.clearEpics();
@@ -54,7 +54,7 @@ class EpicTest {
     }
 
     @Test
-    void updateEpic(){
+    void updateEpic() {
         Epic epic = new Epic("Test", "Test description");
         final int epicId = taskManager.makeNewEpic(epic);
         Epic secondEpic = new Epic("Test updateEpic", "Test updateEpic description", epicId);
@@ -64,7 +64,7 @@ class EpicTest {
     }
 
 
-    void shouldChangeEpicStatus(){
+    void shouldChangeEpicStatus() {
         Epic epic = new Epic("Test", "Test description");
         final int epicId = taskManager.makeNewEpic(epic);
         assertEquals(TaskStatus.NEW, epic.getStatus(), "У эпика без сабтасков статус не равен NEW");
@@ -82,7 +82,7 @@ class EpicTest {
     }
 
     @Test
-    void epicShouldEqualsEpicWithEqualsId(){
+    void epicShouldEqualsEpicWithEqualsId() {
         Epic firstEpic = new Epic("Test first epic", "Test first epic description");
         firstEpic.setId(1);
         Epic secondEpic = new Epic("Test second epic", "Test second epic description");
@@ -91,7 +91,7 @@ class EpicTest {
     }
 
     @Test
-    void shouldNotChangeId(){
+    void shouldNotChangeId() {
         Epic epic = new Epic("Test first epic", "Test first epic description", 1);
         epic.setId(50);
         assertEquals(1, epic.getId(), "Айди эпика изменился!");

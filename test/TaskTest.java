@@ -9,7 +9,7 @@ class TaskTest {
     TaskManager taskManager;
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         taskManager = Managers.getDefault();
     }
 
@@ -34,7 +34,7 @@ class TaskTest {
     }
 
     @Test
-    void shouldRemoveTask(){
+    void shouldRemoveTask() {
         Task task = new Task("Test addNewTask", "Test addNewTask description",  TaskStatus.NEW);
         final int taskId = taskManager.makeNewTask(task);
         taskManager.removeTask(taskId);
@@ -42,14 +42,14 @@ class TaskTest {
     }
 
     @Test
-    void shouldClearTasks(){
+    void shouldClearTasks() {
         Task task = new Task("Test addNewTask", "Test addNewTask description",  TaskStatus.NEW);
         final int taskId = taskManager.makeNewTask(task);
         taskManager.clearTasks();
         assertEquals(0, taskManager.getAllTasks().size(),"Задачи не очищаются");
     }
 
-    void updateTask(){
+    void updateTask() {
         Task task = new Task("Test", "Test description",  TaskStatus.NEW);
         final int taskId = taskManager.makeNewTask(task);
         Task secondTask = new Task("Test updateTask", "Test updateTask description", TaskStatus.IN_PROGRESS, taskId);
@@ -60,7 +60,7 @@ class TaskTest {
     }
 
     @Test
-    void taskShouldEqualsTaskWithEqualsId(){
+    void taskShouldEqualsTaskWithEqualsId() {
         Task firstTask = new Task("Test first task", "Test first task description", TaskStatus.NEW);
         firstTask.setId(1);
         Task secondTask = new Task("Test second task", "Test second task description", TaskStatus.NEW);
@@ -69,7 +69,7 @@ class TaskTest {
     }
 
     @Test
-    void shouldNotChangeId(){
+    void shouldNotChangeId() {
         Task task = new Task("Test first task", "Test first task description", TaskStatus.NEW, 1);
         task.setId(50);
         assertEquals(1, task.getId(), "Айди задачи изменился!");

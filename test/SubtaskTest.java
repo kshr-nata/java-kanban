@@ -42,7 +42,7 @@ class SubtaskTest {
     }
 
     @Test
-    void shouldRemoveSubtask(){
+    void shouldRemoveSubtask() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         final int epicId = taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic);
@@ -52,8 +52,8 @@ class SubtaskTest {
 
         ArrayList<Subtask> subtasks = epic.getSubtasks();
         Subtask foundSubtask = null;
-        for (Subtask currentSubtask : subtasks){
-            if(currentSubtask.equals(subtask)){
+        for (Subtask currentSubtask : subtasks) {
+            if(currentSubtask.equals(subtask)) {
                 foundSubtask = currentSubtask;
             }
         }
@@ -61,7 +61,7 @@ class SubtaskTest {
     }
 
     @Test
-    void shouldClearSubtasks(){
+    void shouldClearSubtasks() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         final int epicId = taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic);
@@ -71,7 +71,7 @@ class SubtaskTest {
     }
 
     @Test
-    void updateSubtask(){
+    void updateSubtask() {
         Epic epic = new Epic("Test", "Test description");
         final int epicId = taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test", "Test description", TaskStatus.NEW, epic);
@@ -95,7 +95,7 @@ class SubtaskTest {
     }
 
     @Test
-    void shouldNotChangeId(){
+    void shouldNotChangeId() {
         Epic epic = new Epic("Test first epic", "Test first epic description", 0);
         Subtask subtask = new Subtask("Test first subtask", "Test first epic description", TaskStatus.NEW, epic, 1);
         subtask.setId(50);
