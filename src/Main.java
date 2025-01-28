@@ -61,7 +61,7 @@ public class Main {
         }
         for (Epic epic : taskManager.getAllEpics()) {
             System.out.println(epic);
-            if (epic.getSubtasks().isEmpty()){
+            if (epic.getSubtasks().isEmpty()) {
                 System.out.println("Подзадачи эпика отсутствуют");
             } else {
                 System.out.println("Подзадачи эпика: ");
