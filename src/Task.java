@@ -7,7 +7,7 @@ public class Task {
     private TaskStatus status;
 
     //конструктор для создания новых задач
-    Task(String name, String description, TaskStatus status){
+    Task(String name, String description, TaskStatus status) {
         this.name = name;
         this.description = description;
         this.status = status;
@@ -15,7 +15,7 @@ public class Task {
     }
 
     //конструктор для создания измененных задач
-    Task(String name, String description, TaskStatus status, int id){
+    Task(String name, String description, TaskStatus status, int id) {
         this.name = name;
         this.description = description;
         this.status = status;
