@@ -51,7 +51,8 @@ public class Epic extends Task {
         } else if (doneTaskCount == subtasks.size()) {
             status = TaskStatus.DONE;
         }
-        setStatus(status);
+        //super.setStatus(status);
+        super.setStatus(status);
     }
 
     @Override
