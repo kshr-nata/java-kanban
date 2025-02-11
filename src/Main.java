@@ -1,3 +1,5 @@
+import java.io.File;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -35,6 +37,11 @@ public class Main {
         System.out.println("После обновления задач");
         printAll(taskManager);
 
+        //создаем еще один таскменеджер из файла, создаем его до печати всех задач, так как печать меняет историю просмотров
+        TaskManager taskManagerFromFile = FileBackedTaskManager.loadFromFile(new File("resources/task.csv"));
+        System.out.println("----------------------");
+        System.out.println("Сохранили этот результат в отдельный менеджер задач (Менеджер v2)");
+
         //удаляем задачи
         taskManager.removeTask(1);
         taskManager.removeTask(10);
@@ -50,7 +57,13 @@ public class Main {
         System.out.println("----------------------");
         System.out.println("После удаления всех задач и подзадач");
         printAll(taskManager);
+
+        //печатаем задачи из менеджера, сохраненного из файла
+        System.out.println("----------------------");
+        System.out.println("Выводим задачи, сохраненные в Менеджер v2");
+        printAll(taskManagerFromFile);
     }
+
 
     private static void printAll(TaskManager taskManager) {
         for (Task task : taskManager.getAllTasks()) {
