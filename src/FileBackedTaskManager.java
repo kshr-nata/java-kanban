@@ -132,13 +132,13 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write("id,type,name,status,description,epic\n");
             for (Task task : getAllTasks()) {
-                writer.write(CSVTaskFormat.toString(task) + "\n");
+                writer.write(toString(task) + "\n");
             }
             for (Epic epic : getAllEpics()) {
-                writer.write(CSVTaskFormat.toString(epic) + "\n");
+                writer.write(toString(epic) + "\n");
             }
             for (Subtask subtask : getAllSubtasks()) {
-                writer.write(CSVTaskFormat.toString(subtask) + "\n");
+                writer.write(toString(subtask) + "\n");
             }
             writer.write("\n");
             for (Task task : getHistory()) {
@@ -167,7 +167,7 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         boolean isHeader = true;
         for (String taskString : valuesOfTasks) {
             if (!isHeader) {
-                Task task = CSVTaskFormat.taskFromString(taskString, taskManager);
+                Task task = taskFromString(taskString, taskManager);
                 if (task != null) {
                     taskManager.addTaskToMap(task);
                     taskManager.currentId = Integer.max(task.getId(), taskManager.currentId);
@@ -193,5 +193,35 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
             }
         }
     }
+
+    private static String toString(Task task) {
+        String taskString = task.getId() + "," + task.getType() + "," + task.getName() + "," + task.getStatus() + "," + task.getDescription();
+        if (task.getType() == TaskType.SUBTASK) {
+            taskString = taskString + "," + ((Subtask) task).getEpic().getId();
+        }
+        return taskString;
+    }
+
+    private static Task taskFromString(String value, TaskManager taskManager) throws ManagerLoadFromFileException {
+        final String[] values = value.split(",");
+        if (values.length < 5) {
+            throw new ManagerLoadFromFileException("Ошибка при чтении строки задачи");
+        }
+        final int id = Integer.parseInt(values[0]);
+        final TaskType type = TaskType.valueOf(values[1]);
+        if (type == TaskType.TASK) {
+            return new Task(values[2], values[4], TaskStatus.valueOf(values[3]), id);
+        } else if (type == TaskType.EPIC) {
+            return new Epic(values[2], values[4], id);
+        } else if (type == TaskType.SUBTASK) {
+            if (values.length < 6) {
+                throw new ManagerLoadFromFileException("Ошибка при чтении строки подзадачи");
+            }
+            final int epicId = Integer.parseInt(values[5]);
+            return new Subtask(values[2], values[4], TaskStatus.valueOf(values[3]), taskManager.getEpic(epicId), id);
+        }
+        return null;
+    }
+
 }
 
