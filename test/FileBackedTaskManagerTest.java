@@ -2,6 +2,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,7 +33,7 @@ class FileBackedTaskManagerTest {
     void saveLoadFile() throws IOException {
         File file = File.createTempFile("testEmptyFile-", ".csv");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-        Task task = new Task("Test saveLoadFile", "Test saveLoadFile description",  TaskStatus.NEW);
+        Task task = new Task("Test saveLoadFile", "Test saveLoadFile description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int taskId = taskManager.makeNewTask(task);
         //вызовем получение задачи для обновления истории
         taskManager.getTask(taskId);

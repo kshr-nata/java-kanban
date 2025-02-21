@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ class SubtaskTest {
         Epic epic = new Epic("Test addNewSubtask", "Test addNewSubtask description");
         final int epicId = taskManager.makeNewEpic(epic);
 
-        Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic);
+        Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int subtaskId = taskManager.makeNewSubtask(subtask);
 
         final Subtask savedSubtask = taskManager.getSubtask(subtaskId);
@@ -45,7 +47,7 @@ class SubtaskTest {
     void shouldRemoveSubtask() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         final int epicId = taskManager.makeNewEpic(epic);
-        Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic);
+        Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int subtaskId = taskManager.makeNewSubtask(subtask);
         taskManager.removeSubtask(subtaskId);
         assertEquals(0, taskManager.getAllSubtasks().size(),"Сабтаск не удаляется");
@@ -64,7 +66,7 @@ class SubtaskTest {
     void shouldClearSubtasks() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         final int epicId = taskManager.makeNewEpic(epic);
-        Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic);
+        Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int subtaskId = taskManager.makeNewSubtask(subtask);
         taskManager.clearSubtasks();
         assertEquals(0, taskManager.getAllSubtasks().size(),"Сабтаски не очищаются");
@@ -74,9 +76,9 @@ class SubtaskTest {
     void updateSubtask() {
         Epic epic = new Epic("Test", "Test description");
         final int epicId = taskManager.makeNewEpic(epic);
-        Subtask subtask = new Subtask("Test", "Test description", TaskStatus.NEW, epic);
+        Subtask subtask = new Subtask("Test", "Test description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int subtaskId = taskManager.makeNewSubtask(subtask);
-        Subtask secondSubtask = new Subtask("Test updateSubtask", "Test updateSubtask description", TaskStatus.IN_PROGRESS, epic, subtaskId);
+        Subtask secondSubtask = new Subtask("Test updateSubtask", "Test updateSubtask description", TaskStatus.IN_PROGRESS, epic, subtaskId, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         taskManager.updateSubtask(secondSubtask);
         assertEquals("Test updateSubtask", subtask.getName(), "Имя сабтаска не изменилось.");
         assertEquals("Test updateSubtask description", subtask.getDescription(), "Описание сабтаска не изменилось.");
@@ -87,9 +89,9 @@ class SubtaskTest {
     void SubtaskShouldEqualsSubtaskWithEqualsId() {
         Epic firstEpic = new Epic("Test first epic", "Test first epic description");
         firstEpic.setId(0);
-        Subtask firstSubtask = new Subtask("Test first subtask", "Test first epic description", TaskStatus.NEW, firstEpic);
+        Subtask firstSubtask = new Subtask("Test first subtask", "Test first epic description", TaskStatus.NEW, firstEpic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         firstSubtask.setId(1);
-        Subtask secondSubtask = new Subtask("Test second subtask", "Test second subtask description", TaskStatus.NEW, firstEpic);
+        Subtask secondSubtask = new Subtask("Test second subtask", "Test second subtask description", TaskStatus.NEW, firstEpic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         secondSubtask.setId(1);
         assertEquals(firstSubtask, secondSubtask, "Сабтакски с одинаковым айди не равны.");
     }
@@ -97,7 +99,7 @@ class SubtaskTest {
     @Test
     void shouldNotChangeId() {
         Epic epic = new Epic("Test first epic", "Test first epic description", 0);
-        Subtask subtask = new Subtask("Test first subtask", "Test first epic description", TaskStatus.NEW, epic, 1);
+        Subtask subtask = new Subtask("Test first subtask", "Test first epic description", TaskStatus.NEW, epic, 1, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         subtask.setId(50);
         assertEquals(1, subtask.getId(), "Айди сабтаска изменился!");
     }

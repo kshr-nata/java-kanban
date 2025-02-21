@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,15 +70,15 @@ class EpicTest {
         Epic epic = new Epic("Test", "Test description");
         final int epicId = taskManager.makeNewEpic(epic);
         assertEquals(TaskStatus.NEW, epic.getStatus(), "У эпика без сабтасков статус не равен NEW");
-        Subtask subtask = new Subtask("Test", "Test description", TaskStatus.NEW, epic);
+        Subtask subtask = new Subtask("Test", "Test description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int subtaskId = taskManager.makeNewSubtask(subtask);
         assertEquals(TaskStatus.NEW, epic.getStatus(), "У эпика статус не равен NEW");
 
-        Subtask updatedSubtask = new Subtask("Test", "Test description", TaskStatus.DONE, epic, subtaskId);
+        Subtask updatedSubtask = new Subtask("Test", "Test description", TaskStatus.DONE, epic, subtaskId, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         taskManager.updateSubtask(updatedSubtask);
         assertEquals(TaskStatus.DONE, epic.getStatus(), "У эпика статус не равен DONE");
 
-        Subtask secondSubtask = new Subtask("Test", "Test description", TaskStatus.IN_PROGRESS, epic);
+        Subtask secondSubtask = new Subtask("Test", "Test description", TaskStatus.IN_PROGRESS, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int secondSubtaskId = taskManager.makeNewSubtask(secondSubtask);
         assertEquals(TaskStatus.IN_PROGRESS, epic.getStatus(), "У эпика статус не равен IN_PROGRESS");
     }

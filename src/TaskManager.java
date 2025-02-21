@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public interface TaskManager {
     //получение списка всех задач
@@ -47,8 +48,9 @@ public interface TaskManager {
     List<Task> getHistory();
 
     HistoryManager getHistoryManager();
-
     //получение всех подзадач эпика
-    ArrayList<Subtask> getSubtasksByEpic(Epic epic);
+    List<Subtask> getSubtasksByEpic(Epic epic);
+
+    Set<Task> getPrioritizedTasks();
 }
 

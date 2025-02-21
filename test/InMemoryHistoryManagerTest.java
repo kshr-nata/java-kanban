@@ -1,12 +1,15 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
     HistoryManager historyManager;
     TaskManager taskManager;
-    Task task = new Task("Test addNewTask", "Test addNewTask description", TaskStatus.NEW);
+    Task task = new Task("Test addNewTask", "Test addNewTask description", TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
 
     @BeforeEach
     void beforeEach() {
@@ -49,7 +52,7 @@ class InMemoryHistoryManagerTest {
     void elementShouldBeAddedInTail() {
         taskManager.makeNewTask(task);
         historyManager.add(task);
-        Task secondTask = new Task("Test elementsShouldBeUniqe", "Test elementsShouldBeUniqe description", TaskStatus.NEW);
+        Task secondTask = new Task("Test elementsShouldBeUniqe", "Test elementsShouldBeUniqe description", TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         taskManager.makeNewTask(secondTask);
         historyManager.add(secondTask);
         final List<Task> history = historyManager.getHistory();
@@ -61,10 +64,10 @@ class InMemoryHistoryManagerTest {
     void shouldRemoveFromHistory() {
         taskManager.makeNewTask(task);
         historyManager.add(task);
-        Task secondTask = new Task("Test elementsShouldBeUniqe", "Test elementsShouldBeUniqe description", TaskStatus.NEW);
+        Task secondTask = new Task("Test elementsShouldBeUniqe", "Test elementsShouldBeUniqe description", TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         taskManager.makeNewTask(secondTask);
         historyManager.add(secondTask);
-        Task thirdTask = new Task("Test shouldRemoveMidle", "Test shouldRemoveMidle description", TaskStatus.NEW);
+        Task thirdTask = new Task("Test shouldRemoveMidle", "Test shouldRemoveMidle description", TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         taskManager.makeNewTask(thirdTask);
         historyManager.add(thirdTask);
 
