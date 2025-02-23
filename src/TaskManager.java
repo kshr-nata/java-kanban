@@ -4,11 +4,11 @@ import java.util.Set;
 
 public interface TaskManager {
     //получение списка всех задач
-    ArrayList<Task> getAllTasks();
+    List<Task> getAllTasks();
 
-    ArrayList<Epic> getAllEpics();
+    List<Epic> getAllEpics();
 
-    ArrayList<Subtask> getAllSubtasks();
+    List<Subtask> getAllSubtasks();
 
     //удаление всех задач
     void clearTasks();

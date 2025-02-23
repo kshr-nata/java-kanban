@@ -65,7 +65,7 @@ class EpicTest {
         assertEquals("Test updateEpic description", epic.getDescription(), "Описание эпика не изменилось.");
     }
 
-
+    @Test
     void shouldChangeEpicStatus() {
         Epic epic = new Epic("Test", "Test description");
         final int epicId = taskManager.makeNewEpic(epic);
@@ -78,8 +78,14 @@ class EpicTest {
         taskManager.updateSubtask(updatedSubtask);
         assertEquals(TaskStatus.DONE, epic.getStatus(), "У эпика статус не равен DONE");
 
-        Subtask secondSubtask = new Subtask("Test", "Test description", TaskStatus.IN_PROGRESS, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
+        Subtask secondSubtask = new Subtask("Test", "Test description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,16,30), Duration.ofMinutes(30));
         final int secondSubtaskId = taskManager.makeNewSubtask(secondSubtask);
+        assertEquals(TaskStatus.IN_PROGRESS, epic.getStatus(), "У эпика статус не равен IN_PROGRESS");
+
+        Subtask updatedSubtask2 = new Subtask("Test", "Test description", TaskStatus.IN_PROGRESS, epic, subtaskId, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
+        taskManager.updateSubtask(updatedSubtask);
+        Subtask updatedSecondSubtask = new Subtask("Test", "Test description", TaskStatus.IN_PROGRESS, epic, secondSubtaskId, LocalDateTime.of(2025, 1,20,16,30), Duration.ofMinutes(30));
+        taskManager.updateSubtask(updatedSecondSubtask);
         assertEquals(TaskStatus.IN_PROGRESS, epic.getStatus(), "У эпика статус не равен IN_PROGRESS");
     }
 

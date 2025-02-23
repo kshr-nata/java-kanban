@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,6 +18,16 @@ class FileBackedTaskManagerTest {
         assertNotNull(taskManager, "taskManager is null!");
         assertEquals(taskManager.getAllTasks().size(), 0, "Количество задач не равно 0");
         assertEquals(taskManager.getHistory().size(), 0, "Количество задач в истории не равно 0");
+    }
+
+    @Test
+    public void testException() {
+        assertThrows(ManagerSaveException.class, () -> {
+            File file = File.createTempFile("testEmptyFile-", ".csv");
+            FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            taskManager.save();
+        }, "Попытка сохранить файл в который идет запись должна приводить к ошибке");
     }
 
     @Test

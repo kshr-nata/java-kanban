@@ -51,6 +51,7 @@ class TaskTest {
         assertEquals(0, taskManager.getAllTasks().size(),"Задачи не очищаются");
     }
 
+    @Test
     void updateTask() {
         Task task = new Task("Test", "Test description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int taskId = taskManager.makeNewTask(task);
@@ -76,4 +77,15 @@ class TaskTest {
         task.setId(50);
         assertEquals(1, task.getId(), "Айди задачи изменился!");
     }
+
+    @Test
+    void TaskShouldNotBeAddedIfTimeIntersection() {
+        TaskManager taskManager = Managers.getDefault();
+        Task task = new Task("Test TaskShouldNotBeAddedIfTimeIntersection", "Test TaskShouldNotBeAddedIfTimeIntersection description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
+        final int taskId = taskManager.makeNewTask(task);
+        Task secondTask = new Task("Test TaskShouldNotBeAddedIfTimeIntersection", "Test TaskShouldNotBeAddedIfTimeIntersection description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,15), Duration.ofMinutes(30));
+        final int secondTaskId = taskManager.makeNewTask(secondTask);
+        assertEquals(1, taskManager.getAllTasks().size(), "количество задач не равно 1!");
+    }
+
 }

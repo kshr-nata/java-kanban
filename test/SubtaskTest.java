@@ -104,4 +104,13 @@ class SubtaskTest {
         assertEquals(1, subtask.getId(), "Айди сабтаска изменился!");
     }
 
+    @Test
+    void shouldEqualsSubtaskFromEpic() {
+        Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
+        final int epicId = taskManager.makeNewEpic(epic);
+        Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
+        final int subtaskId = taskManager.makeNewSubtask(subtask);
+        assertEquals(taskManager.getSubtask(subtaskId).getEpic(), epic);
+        assertEquals(taskManager.getSubtask(subtaskId), taskManager.getSubtasksByEpic(epic).getFirst());
+    }
 }
