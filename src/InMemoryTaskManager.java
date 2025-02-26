@@ -106,7 +106,7 @@ public class InMemoryTaskManager implements TaskManager {
     //создание новых задач
     @Override
     public int makeNewTask(Task task) {
-        if (task.getStartTime() != null && IsTaskIntersection(task)) {
+        if (task.getStartTime() != null && isTaskIntersection(task)) {
             return 0;
         }
         int id = getNewId();
@@ -130,7 +130,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public int makeNewSubtask(Subtask task) {
         if (epics.containsKey(task.getEpic().getId())) {
-            if (task.getStartTime() != null && IsTaskIntersection(task)) {
+            if (task.getStartTime() != null && isTaskIntersection(task)) {
                 return 0;
             }
             int id = getNewId();
@@ -150,7 +150,7 @@ public class InMemoryTaskManager implements TaskManager {
     //обновление задач
     @Override
     public void updateTask(Task newTask) {
-        if (newTask.getStartTime() != null && IsTaskIntersection(newTask)) {
+        if (newTask.getStartTime() != null && isTaskIntersection(newTask)) {
             return;
         }
         int id = newTask.getId();
@@ -168,7 +168,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateSubtask(Subtask newTask) {
-        if (newTask.getStartTime() != null && IsTaskIntersection(newTask)) {
+        if (newTask.getStartTime() != null && isTaskIntersection(newTask)) {
             return;
         }
         int id = newTask.getId();
@@ -267,10 +267,10 @@ public class InMemoryTaskManager implements TaskManager {
         return currentId;
     }
 
-    private boolean IsTaskIntersection(Task task) {
+    private boolean isTaskIntersection(Task task) {
         if (task.getStartTime() != null) {
-            for (Task chekTask : getPrioritizedTasks()){
-                if (task.getId()!= chekTask.getId() && task.getStartTime().isBefore(chekTask.getEndTime())
+            for (Task chekTask : getPrioritizedTasks()) {
+                if (task.getId() != chekTask.getId() && task.getStartTime().isBefore(chekTask.getEndTime())
                         && task.getEndTime().isAfter(chekTask.getStartTime())) {
                     return true;
                 }
