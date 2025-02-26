@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -48,6 +47,7 @@ public interface TaskManager {
     List<Task> getHistory();
 
     HistoryManager getHistoryManager();
+
     //получение всех подзадач эпика
     List<Subtask> getSubtasksByEpic(Epic epic);
 
