@@ -14,14 +14,14 @@ public class Main {
         Task task2 = new Task("Скорректировать список дел", "Вторая задача", TaskStatus.NEW, LocalDateTime.of(2025, 2,20,8,30), Duration.ofMinutes(35));
         taskManager.makeNewTask(task2);
         Epic epic1 = new Epic("Спринт 4", "Описание спринта");
-        taskManager.makeNewEpic(epic1);
-        Subtask subtask1 = new Subtask("Написать код", "Написать код подробно", TaskStatus.NEW, epic1, null, Duration.ofMinutes(100));
+        int epicId1 = taskManager.makeNewEpic(epic1);
+        Subtask subtask1 = new Subtask("Написать код", "Написать код подробно", TaskStatus.NEW, taskManager.getEpic(epicId1), null, Duration.ofMinutes(100));
         taskManager.makeNewSubtask(subtask1);
-        Subtask subtask2 = new Subtask("Протестировать код", "Протестировать код подробно", TaskStatus.NEW, epic1, LocalDateTime.of(2025, 1,20,16,30), Duration.ofMinutes(60));
+        Subtask subtask2 = new Subtask("Протестировать код", "Протестировать код подробно", TaskStatus.NEW, taskManager.getEpic(epicId1), LocalDateTime.of(2025, 1,20,16,30), Duration.ofMinutes(60));
         taskManager.makeNewSubtask(subtask2);
         Epic epic2 = new Epic("Переезд", "Описание переезда");
-        taskManager.makeNewEpic(epic2);
-        Subtask subtask3 = new Subtask("Собрать коробки", "Собрать все коробки", TaskStatus.NEW, epic2, LocalDateTime.of(2026, 1,20,8,30), Duration.ofMinutes(30));
+        int epicId2 = taskManager.makeNewEpic(epic2);
+        Subtask subtask3 = new Subtask("Собрать коробки", "Собрать все коробки", TaskStatus.NEW, taskManager.getEpic(epicId2), LocalDateTime.of(2026, 1,20,8,30), Duration.ofMinutes(30));
         taskManager.makeNewSubtask(subtask3);
         printAll(taskManager);
 
@@ -76,11 +76,11 @@ public class Main {
         }
         for (Epic epic : taskManager.getAllEpics()) {
             System.out.println(epic);
-            if (epic.getSubtasks().isEmpty()) {
+            if (taskManager.getSubtasksByEpic(epic).isEmpty()) {
                 System.out.println("Подзадачи эпика отсутствуют");
             } else {
                 System.out.println("Подзадачи эпика: ");
-                for (Subtask subtask : epic.getSubtasks()) {
+                for (Subtask subtask : taskManager.getSubtasksByEpic(epic)) {
                     System.out.println(subtask);
                 }
             }

@@ -121,8 +121,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public int makeNewEpic(Epic task) {
         int id = getNewId();
-        task.updateStatus();
         task.setId(id);
+        task.updateStatus();
         epics.put(id, task);
         return id;
     }
@@ -141,6 +141,7 @@ public class InMemoryTaskManager implements TaskManager {
             }
             Epic epic = task.getEpic();
             epic.addSubtaskToEpic(task);
+            epics.put(epic.getId(), epic);
             return id;
         }
         return 0;
@@ -153,19 +154,15 @@ public class InMemoryTaskManager implements TaskManager {
             return;
         }
         int id = newTask.getId();
-        Task updatedTask = getTask(id);
-        if (updatedTask != null) {
-            if (updatedTask.getStartTime() != null) {
-                prioritizedTasks.remove(updatedTask);
+        Task oldTask = getTask(id);
+        if (oldTask != null) {
+            if (oldTask.getStartTime() != null) {
+                prioritizedTasks.remove(oldTask);
             }
-            updatedTask.setName(newTask.getName());
-            updatedTask.setDescription(newTask.getDescription());
-            updatedTask.setStatus(newTask.getStatus());
-            updatedTask.setDuration(newTask.getDuration());
-            updatedTask.setStartTime(newTask.getStartTime());
-            if (updatedTask.getStartTime() != null) {
-                prioritizedTasks.add(updatedTask);
+            if (newTask.getStartTime() != null) {
+                prioritizedTasks.add(newTask);
             }
+            tasks.put(id, newTask);
         }
     }
 
@@ -250,8 +247,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     //получение всех подзадач эпика
     @Override
-    public ArrayList<Subtask> getSubtasksByEpic(Epic epic) {
-        return epic.getSubtasks();
+    public List<Subtask> getSubtasksByEpic(Epic epic) {
+        return getEpic(epic.getId()).getSubtasks().stream().toList();
     }
 
     @Override
