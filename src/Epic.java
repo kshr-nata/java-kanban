@@ -65,7 +65,7 @@ public class Epic extends Task {
                 endTime = subtask.getEndTime();
             }
         }
-        if (startTime != null & endTime != null){
+        if (startTime != null & endTime != null) {
             setDuration(Duration.between(startTime, endTime));
         }
     }
