@@ -1,14 +1,12 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 abstract class TaskManagerTest<T extends TaskManager> {
 
@@ -50,7 +48,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void shouldClearTasks() {
         Task task = new Task("Test addNewTask", "Test addNewTask description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
-        final int taskId = taskManager.makeNewTask(task);
+        taskManager.makeNewTask(task);
         taskManager.clearTasks();
         assertEquals(0, taskManager.getAllTasks().size(),"Задачи не очищаются");
     }
@@ -86,9 +84,9 @@ abstract class TaskManagerTest<T extends TaskManager> {
     void TaskShouldNotBeAddedIfTimeIntersection() {
         TaskManager taskManager = Managers.getDefault();
         Task task = new Task("Test TaskShouldNotBeAddedIfTimeIntersection", "Test TaskShouldNotBeAddedIfTimeIntersection description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
-        final int taskId = taskManager.makeNewTask(task);
+        taskManager.makeNewTask(task);
         Task secondTask = new Task("Test TaskShouldNotBeAddedIfTimeIntersection", "Test TaskShouldNotBeAddedIfTimeIntersection description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,15), Duration.ofMinutes(30));
-        final int secondTaskId = taskManager.makeNewTask(secondTask);
+        taskManager.makeNewTask(secondTask);
         assertEquals(1, taskManager.getAllTasks().size(), "количество задач не равно 1!");
     }
 
@@ -125,7 +123,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void shouldClearEpics() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
-        final int epicId = taskManager.makeNewEpic(epic);
+        taskManager.makeNewEpic(epic);
         taskManager.clearEpics();
         assertEquals(0, taskManager.getAllEpics().size(),"Эпики не очищаются");
     }
@@ -183,7 +181,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void addNewSubtask() {
         Epic epic = new Epic("Test addNewSubtask", "Test addNewSubtask description");
-        final int epicId = taskManager.makeNewEpic(epic);
+        taskManager.makeNewEpic(epic);
 
         Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int subtaskId = taskManager.makeNewSubtask(subtask);
@@ -208,7 +206,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void shouldRemoveSubtask() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
-        final int epicId = taskManager.makeNewEpic(epic);
+        taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int subtaskId = taskManager.makeNewSubtask(subtask);
         taskManager.removeSubtask(subtaskId);
@@ -221,15 +219,15 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 foundSubtask = currentSubtask;
             }
         }
-        assertEquals(null, foundSubtask, "Сабтаск не удаляется из подзадач эпика" );
+        assertNull(foundSubtask, "Сабтаск не удаляется из подзадач эпика");
     }
 
     @Test
     void shouldClearSubtasks() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
-        final int epicId = taskManager.makeNewEpic(epic);
+        taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
-        final int subtaskId = taskManager.makeNewSubtask(subtask);
+        taskManager.makeNewSubtask(subtask);
         taskManager.clearSubtasks();
         assertEquals(0, taskManager.getAllSubtasks().size(),"Сабтаски не очищаются");
     }
@@ -237,7 +235,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void updateSubtask() {
         Epic epic = new Epic("Test", "Test description");
-        final int epicId = taskManager.makeNewEpic(epic);
+        taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test", "Test description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int subtaskId = taskManager.makeNewSubtask(subtask);
         Subtask secondSubtask = new Subtask("Test updateSubtask", "Test updateSubtask description", TaskStatus.IN_PROGRESS, epic, subtaskId, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
@@ -269,7 +267,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void shouldEqualsSubtaskFromEpic() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
-        final int epicId = taskManager.makeNewEpic(epic);
+        taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int subtaskId = taskManager.makeNewSubtask(subtask);
         assertEquals(taskManager.getSubtask(subtaskId).getEpic(), epic);

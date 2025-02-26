@@ -29,6 +29,7 @@ public class Main {
         Subtask subtask4 = new Subtask("Написать код", "Написать код подробно", TaskStatus.DONE, epic1, 4, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         taskManager.updateSubtask(subtask4);
         Subtask subtask5 = new Subtask("Протестировать код", "Протестировать код подробно", TaskStatus.IN_PROGRESS, epic1, 5, LocalDateTime.of(2025, 1,22,8,30), Duration.ofMinutes(30));
+        taskManager.updateSubtask(subtask5);
         Subtask subtask6 = new Subtask("Перееезд", "Сложить коробки в машину", TaskStatus.IN_PROGRESS, epic2, 8, LocalDateTime.of(2024, 1,20,8,30), Duration.ofMinutes(30));
         taskManager.updateSubtask(subtask6);
         Epic epic3 = new Epic("Спринт 4 с изменениями", "Описание спринта +", 3);
