@@ -1,13 +1,13 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public interface TaskManager {
     //получение списка всех задач
-    ArrayList<Task> getAllTasks();
+    List<Task> getAllTasks();
 
-    ArrayList<Epic> getAllEpics();
+    List<Epic> getAllEpics();
 
-    ArrayList<Subtask> getAllSubtasks();
+    List<Subtask> getAllSubtasks();
 
     //удаление всех задач
     void clearTasks();
@@ -49,6 +49,8 @@ public interface TaskManager {
     HistoryManager getHistoryManager();
 
     //получение всех подзадач эпика
-    ArrayList<Subtask> getSubtasksByEpic(Epic epic);
+    List<Subtask> getSubtasksByEpic(Epic epic);
+
+    Set<Task> getPrioritizedTasks();
 }
 
