@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class InMemoryHistoryManagerTest {
     HistoryManager historyManager;
     TaskManager taskManager;
-    Task task = new Task("Test addNewTask", "Test addNewTask description", TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
+    Task task = new Task("Test addNewTask", "Test addNewTask description", TaskStatus.NEW, LocalDateTime.of(2025, 1,20,6,30), Duration.ofMinutes(30));
 
     @BeforeEach
     void beforeEach() {
@@ -66,9 +66,9 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldRemoveFromHistory() {
-        taskManager.makeNewTask(task);
-        historyManager.add(task);
+    void shouldRemoveFromHistory() throws NotFoundException {
+        final int taskId = taskManager.makeNewTask(task);
+        historyManager.add(taskManager.getTask(taskId));
         Task secondTask = new Task("Test elementsShouldBeUniqe", "Test elementsShouldBeUniqe description", TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         taskManager.makeNewTask(secondTask);
         historyManager.add(secondTask);

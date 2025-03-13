@@ -38,7 +38,7 @@ class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
     }
 
     @Test
-    void saveLoadFile() throws IOException {
+    void saveLoadFile() throws IOException, NotFoundException {
         File file = File.createTempFile("testEmptyFile-", ".csv");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
         Task task = new Task("Test saveLoadFile", "Test saveLoadFile description", TaskStatus.NEW, LocalDateTime.of(2025, 1, 20, 8, 30), Duration.ofMinutes(30));
