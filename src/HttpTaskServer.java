@@ -37,7 +37,7 @@ public class HttpTaskServer {
         boolean removeTasks = false;
         try {
             Main.makeCustomScript(taskManager, removeTasks);
-        } catch (NotFoundException e){
+        } catch (NotFoundException e) {
             e.printStackTrace();
         }
         httpTaskServer.start();
