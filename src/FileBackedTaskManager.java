@@ -204,14 +204,9 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         for (String value : valuesOfHistory) {
             final int id = Integer.parseInt(value);
             if (taskManager.tasks.containsKey(id)) {
-                try {
-                    taskManager.historyManager.add(taskManager.getTask(id));
-                } catch (NotFoundException ignored) {}
+                taskManager.historyManager.add(taskManager.getTask(id));
             } else if (taskManager.epics.containsKey(id)) {
-                try {
-                    taskManager.historyManager.add(taskManager.getEpic(id));
-                } catch (NotFoundException ignored){}
-
+                taskManager.historyManager.add(taskManager.getEpic(id));
             } else if (taskManager.subtasks.containsKey(id)) {
                 taskManager.historyManager.add(taskManager.getSubtask(id));
             }
