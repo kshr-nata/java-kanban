@@ -28,4 +28,4 @@ class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
             return LocalDateTime.parse(jsonReader.nextString(), dtf);
         }
     }
-} 
+}
