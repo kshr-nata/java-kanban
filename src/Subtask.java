@@ -2,16 +2,16 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Subtask extends Task {
-    private final Epic epic;
+    private final Integer epicId;
 
     Subtask(String name, String description, TaskStatus status, Epic epic, LocalDateTime startTime, Duration duration) {
         super(name, description, status, startTime, duration);
-        this.epic = epic;
+        this.epicId = epic.getId();
     }
 
     Subtask(String name, String description, TaskStatus status, Epic epic, int id, LocalDateTime startTime, Duration duration) {
         super(name, description, status, id, startTime, duration);
-        this.epic = epic;
+        this.epicId = epic.getId();
     }
 
     @Override
@@ -19,8 +19,8 @@ public class Subtask extends Task {
         return TaskType.SUBTASK;
     }
 
-    public Epic getEpic() {
-        return epic;
+    public int getEpicId() {
+        return epicId;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Subtask extends Task {
                 ", description='" + getDescription() + '\'' +
                 ", id=" + getId() +
                 ", status=" + getStatus() +
-                ", epic=" + getEpic() +
+                ", epicId=" + getEpicId() +
                 '}';
     }
 }

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
 
     @Test
-    void loadFromEmptyFile() throws IOException {
+    void loadFromEmptyFile() throws IOException, NotFoundException {
         File file = File.createTempFile("testEmptyFile-", ".csv");
         FileBackedTaskManager taskManager = FileBackedTaskManager.loadFromFile(file);
         assertNotNull(taskManager, "taskManager is null!");
@@ -27,7 +27,7 @@ class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
     }
 
     @Test
-    void saveToEmptyFile() throws IOException {
+    void saveToEmptyFile() throws IOException, NotFoundException {
         File file = File.createTempFile("testEmptyFile-", ".csv");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
         taskManager.save();
@@ -38,7 +38,7 @@ class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
     }
 
     @Test
-    void saveLoadFile() throws IOException {
+    void saveLoadFile() throws IOException, NotFoundException {
         File file = File.createTempFile("testEmptyFile-", ".csv");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
         Task task = new Task("Test saveLoadFile", "Test saveLoadFile description", TaskStatus.NEW, LocalDateTime.of(2025, 1, 20, 8, 30), Duration.ofMinutes(30));
@@ -57,7 +57,7 @@ class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
         try {
             File file = File.createTempFile("testEmptyFile-", ".csv");
             return  FileBackedTaskManager.loadFromFile(file);
-        } catch (IOException ignored) {
+        } catch (IOException | NotFoundException ignored) {
         }
         return null;
     }

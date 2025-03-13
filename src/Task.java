@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Task implements Comparable<Task> {
     private String name;
     private String description;
-    private int id;
+    private Integer id;
     private TaskStatus status;
     private Duration duration = Duration.ofMinutes(0);
     protected LocalDateTime startTime;
@@ -21,7 +21,7 @@ public class Task implements Comparable<Task> {
     }
 
     //конструктор для создания измененных задач
-    Task(String name, String description, TaskStatus status, int id, LocalDateTime startTime, Duration duration) {
+    Task(String name, String description, TaskStatus status, Integer id, LocalDateTime startTime, Duration duration) {
         this.name = name;
         this.description = description;
         this.status = status;
@@ -39,20 +39,20 @@ public class Task implements Comparable<Task> {
     }
 
     //конструктор для создания измененного эпика
-    Task(String name, String description, int id) {
+    Task(String name, String description, Integer id) {
         this.name = name;
         this.description = description;
         this.id = id;
         this.duration = Duration.ofMinutes(0);
     }
 
-    public void setId(int id) {
-        if (this.id == 0) {
+    public void setId(Integer id) {
+        if (this.id == null || this.id == 0) {
             this.id = id;
         }
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -112,7 +112,7 @@ public class Task implements Comparable<Task> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id;
+        return Objects.equals(id, task.id);
     }
 
     @Override
