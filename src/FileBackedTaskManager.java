@@ -34,21 +34,21 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
     }
 
     @Override
-    public Task getTask(Integer id) throws NotFoundException {
+    public Task getTask(Integer id) {
         final Task task = super.getTask(id);
         save();
         return task;
     }
 
     @Override
-    public Subtask getSubtask(Integer id) throws NotFoundException {
+    public Subtask getSubtask(Integer id) {
         final Subtask subtask = super.getSubtask(id);
         save();
         return subtask;
     }
 
     @Override
-    public Epic getEpic(Integer id) throws NotFoundException {
+    public Epic getEpic(Integer id) {
         final Epic epic = super.getEpic(id);
         save();
         return epic;
@@ -78,38 +78,38 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
 
     //обновление задач
     @Override
-    public void updateTask(Task newTask) throws NotFoundException {
+    public void updateTask(Task newTask) {
         super.updateTask(newTask);
         save();
     }
 
     @Override
-    public void updateSubtask(Subtask newTask) throws NotFoundException {
+    public void updateSubtask(Subtask newTask) {
         super.updateSubtask(newTask);
         save();
     }
 
     @Override
-    public void updateEpic(Epic newEpic) throws NotFoundException {
+    public void updateEpic(Epic newEpic) {
         super.updateEpic(newEpic);
         save();
     }
 
     //удаление задачи по айди
     @Override
-    public void removeTask(int id) throws NotFoundException {
+    public void removeTask(int id) {
         super.removeTask(id);
         save();
     }
 
     @Override
-    public void removeSubtask(int id) throws NotFoundException {
+    public void removeSubtask(int id) {
         super.removeSubtask(id);
         save();
     }
 
     @Override
-    public void removeEpic(int id) throws NotFoundException {
+    public void removeEpic(int id) {
         super.removeEpic(id);
         save();
     }
@@ -124,7 +124,7 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         return super.isTaskIntersection(task);
     }
 
-    public static FileBackedTaskManager loadFromFile(File file) throws ManagerLoadFromFileException, NotFoundException {
+    public static FileBackedTaskManager loadFromFile(File file) throws ManagerLoadFromFileException {
         final FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
         try {
             String contents = Files.readString(file.toPath());
@@ -162,7 +162,7 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         }
     }
 
-    private void addTaskToMap(Task task) throws NotFoundException {
+    private void addTaskToMap(Task task) {
         TaskType type = task.getType();
         if (type == TaskType.TASK) {
             tasks.put(task.getId(), task);
@@ -182,7 +182,7 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         }
     }
 
-    private static void loadTasks(FileBackedTaskManager taskManager, String[] valuesOfTasks) throws NotFoundException {
+    private static void loadTasks(FileBackedTaskManager taskManager, String[] valuesOfTasks) {
         boolean isHeader = true;
         for (String taskString : valuesOfTasks) {
             if (!isHeader) {
@@ -196,7 +196,7 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         }
     }
 
-    private static void loadHistory(FileBackedTaskManager taskManager, String[] valuesOfHistory) throws NotFoundException {
+    private static void loadHistory(FileBackedTaskManager taskManager, String[] valuesOfHistory) {
         //очищаем историю
         for (Task task : taskManager.getHistory()) {
             taskManager.historyManager.remove(task.getId());
@@ -248,11 +248,7 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
             if (!values[5].isEmpty()) {
                 startTime = LocalDateTime.parse(values[5], formatter);
             }
-            try {
-                return new Subtask(values[2], values[4], TaskStatus.valueOf(values[3]), taskManager.getEpic(epicId), id, startTime, Duration.ofMinutes(Integer.parseInt(values[6])));
-            } catch (NotFoundException e) {
-                return null;
-            }
+            return new Subtask(values[2], values[4], TaskStatus.valueOf(values[3]), taskManager.getEpic(epicId), id, startTime, Duration.ofMinutes(Integer.parseInt(values[6])));
         }
         return null;
     }

@@ -135,7 +135,7 @@ public class HttpTaskManagerEpicsTest {
     }
 
     @Test
-    public void testGetEpicsSubtask() throws IOException, InterruptedException, NotFoundException {
+    public void testGetEpicsSubtask() throws IOException, InterruptedException {
 
         // создаём задачу
         Epic task = new Epic("Test 2", "Testing task 2");

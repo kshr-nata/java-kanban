@@ -40,7 +40,7 @@ public class HttpTaskManagerSubtasksTest {
     }
 
     @Test
-    public void testAddSubtask() throws IOException, InterruptedException, NotFoundException {
+    public void testAddSubtask() throws IOException, InterruptedException {
         final int epicId = manager.makeNewEpic(epic);
         // создаём задачу
         Subtask task = new Subtask("Test 2", "Testing task 2",
@@ -67,7 +67,7 @@ public class HttpTaskManagerSubtasksTest {
     }
 
     @Test
-    public void testGetTasks() throws IOException, InterruptedException, NotFoundException {
+    public void testGetTasks() throws IOException, InterruptedException {
         final int epicId = manager.makeNewEpic(epic);
         // создаём задачу
         Subtask task = new Subtask("Test 2", "Testing task 2",
@@ -96,7 +96,7 @@ public class HttpTaskManagerSubtasksTest {
     }
 
     @Test
-    public void testGetTaskById() throws IOException, InterruptedException, NotFoundException {
+    public void testGetTaskById() throws IOException, InterruptedException {
         final int epicId = manager.makeNewEpic(epic);
         // создаём задачу
         Subtask task = new Subtask("Test 2", "Testing task 2",
@@ -123,7 +123,7 @@ public class HttpTaskManagerSubtasksTest {
     }
 
     @Test
-    public void deleteTaskById() throws IOException, InterruptedException, NotFoundException {
+    public void deleteTaskById() throws IOException, InterruptedException {
         final int epicId = manager.makeNewEpic(epic);
         // создаём задачу
         Subtask task = new Subtask("Test 2", "Testing task 2",

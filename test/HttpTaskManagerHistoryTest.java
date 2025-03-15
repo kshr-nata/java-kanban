@@ -39,7 +39,7 @@ public class HttpTaskManagerHistoryTest {
     }
 
     @Test
-    public void testGetHistory() throws IOException, InterruptedException, NotFoundException {
+    public void testGetHistory() throws IOException, InterruptedException {
         // создаём задачу
         Task task = new Task("Test 2", "Testing task 2",
                 TaskStatus.NEW, LocalDateTime.now(), Duration.ofMinutes(5));

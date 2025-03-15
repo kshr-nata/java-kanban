@@ -66,7 +66,7 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void shouldRemoveFromHistory() throws NotFoundException {
+    void shouldRemoveFromHistory() {
         final int taskId = taskManager.makeNewTask(task);
         historyManager.add(taskManager.getTask(taskId));
         Task secondTask = new Task("Test elementsShouldBeUniqe", "Test elementsShouldBeUniqe description", TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));

@@ -17,11 +17,11 @@ public interface TaskManager {
     void clearSubtasks();
 
     //получение по идентификатору
-    Task getTask(Integer id) throws NotFoundException;
+    Task getTask(Integer id);
 
-    Subtask getSubtask(Integer id) throws NotFoundException;
+    Subtask getSubtask(Integer id);
 
-    Epic getEpic(Integer id) throws NotFoundException;
+    Epic getEpic(Integer id);
 
     //создание новых задач
     int makeNewTask(Task task);
@@ -31,25 +31,25 @@ public interface TaskManager {
     int makeNewSubtask(Subtask task);
 
     //обновление задач
-    void updateTask(Task newTask) throws NotFoundException;
+    void updateTask(Task newTask);
 
-    void updateSubtask(Subtask newTask) throws NotFoundException;
+    void updateSubtask(Subtask newTask);
 
-    void updateEpic(Epic newEpic) throws NotFoundException;
+    void updateEpic(Epic newEpic);
 
     //удаление задачи по айди
-    void removeTask(int id) throws NotFoundException;
+    void removeTask(int id);
 
-    void removeSubtask(int id) throws NotFoundException;
+    void removeSubtask(int id);
 
-    void removeEpic(int id) throws NotFoundException;
+    void removeEpic(int id);
 
     List<Task> getHistory();
 
     HistoryManager getHistoryManager();
 
     //получение всех подзадач эпика
-    List<Subtask> getSubtasksByEpic(Epic epic) throws NotFoundException;
+    List<Subtask> getSubtasksByEpic(Epic epic);
 
     Set<Task> getPrioritizedTasks();
 

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Main {
 
-    public static void makeCustomScript(TaskManager taskManager, boolean removeTasks) throws NotFoundException {
+    public static void makeCustomScript(TaskManager taskManager, boolean removeTasks) {
 
         System.out.println("Поехали!");
         //создание задач
@@ -65,7 +65,7 @@ public class Main {
     }
 
 
-    private static void printAll(TaskManager taskManager) throws NotFoundException {
+    private static void printAll(TaskManager taskManager) {
         for (Task task : taskManager.getAllTasks()) {
             System.out.println(task);
         }

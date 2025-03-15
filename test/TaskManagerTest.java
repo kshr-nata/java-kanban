@@ -18,7 +18,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void addNewTask() throws NotFoundException {
+    void addNewTask() {
         Task task = new Task("Test addNewTask", "Test addNewTask description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int taskId = taskManager.makeNewTask(task);
         final Task savedTask = taskManager.getTask(taskId);
@@ -37,7 +37,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void shouldRemoveTask() throws NotFoundException {
+    void shouldRemoveTask() {
         Task task = new Task("Test addNewTask", "Test addNewTask description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int taskId = taskManager.makeNewTask(task);
         taskManager.removeTask(taskId);
@@ -53,7 +53,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void updateTask() throws NotFoundException{
+    void updateTask() {
         Task task = new Task("Test", "Test description",  TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
         final int taskId = taskManager.makeNewTask(task);
         Task secondTask = new Task("Test updateTask", "Test updateTask description", TaskStatus.IN_PROGRESS, taskId, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
@@ -90,7 +90,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void addNewEpic() throws NotFoundException {
+    void addNewEpic() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         final int epicId = taskManager.makeNewEpic(epic);
         final Epic savedEpic = taskManager.getEpic(epicId);
@@ -111,7 +111,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void shouldRemoveEpic() throws NotFoundException {
+    void shouldRemoveEpic() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         final int epicId = taskManager.makeNewEpic(epic);
         taskManager.removeEpic(epicId);
@@ -127,7 +127,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void updateEpic() throws NotFoundException {
+    void updateEpic() {
         Epic epic = new Epic("Test", "Test description");
         final int epicId = taskManager.makeNewEpic(epic);
         Epic secondEpic = new Epic("Test updateEpic", "Test updateEpic description", epicId);
@@ -137,7 +137,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void shouldChangeEpicStatus() throws NotFoundException {
+    void shouldChangeEpicStatus() {
         Epic epic = new Epic("Test", "Test description");
         final int epicId = taskManager.makeNewEpic(epic);
         assertEquals(TaskStatus.NEW, taskManager.getEpic(epicId).getStatus(), "У эпика без сабтасков статус не равен NEW");
@@ -177,7 +177,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void addNewSubtask() throws NotFoundException {
+    void addNewSubtask() {
         Epic epic = new Epic("Test addNewSubtask", "Test addNewSubtask description");
         taskManager.makeNewEpic(epic);
 
@@ -202,7 +202,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void shouldRemoveSubtask() throws NotFoundException {
+    void shouldRemoveSubtask() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
@@ -231,7 +231,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void updateSubtask() throws NotFoundException {
+    void updateSubtask() {
         Epic epic = new Epic("Test", "Test description");
         taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test", "Test description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
@@ -263,7 +263,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void shouldEqualsSubtaskFromEpic() throws NotFoundException {
+    void shouldEqualsSubtaskFromEpic() {
         Epic epic = new Epic("Test addNewEpic", "Test addNewEpic description");
         taskManager.makeNewEpic(epic);
         Subtask subtask = new Subtask("Test addNewSubtask", "Test addNewSubtask description", TaskStatus.NEW, epic, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
