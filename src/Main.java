@@ -4,37 +4,34 @@ import java.time.LocalDateTime;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void makeCustomScript(TaskManager taskManager, boolean removeTasks) {
 
         System.out.println("Поехали!");
         //создание задач
-        TaskManager taskManager = Managers.getDefault();
-        Task task1 = new Task("Составить список дел", "Первая задача", TaskStatus.NEW, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
+        Task task1 = new Task("Составить список дел", "Первая задача", TaskStatus.NEW, LocalDateTime.of(2025, 1, 20, 8, 30), Duration.ofMinutes(30));
         taskManager.makeNewTask(task1);
-        Task task2 = new Task("Скорректировать список дел", "Вторая задача", TaskStatus.NEW, LocalDateTime.of(2025, 2,20,8,30), Duration.ofMinutes(35));
+        Task task2 = new Task("Скорректировать список дел", "Вторая задача", TaskStatus.NEW, LocalDateTime.of(2025, 2, 20, 8, 30), Duration.ofMinutes(35));
         taskManager.makeNewTask(task2);
         Epic epic1 = new Epic("Спринт 4", "Описание спринта");
         int epicId1 = taskManager.makeNewEpic(epic1);
         Subtask subtask1 = new Subtask("Написать код", "Написать код подробно", TaskStatus.NEW, taskManager.getEpic(epicId1), null, Duration.ofMinutes(100));
         taskManager.makeNewSubtask(subtask1);
-        Subtask subtask2 = new Subtask("Протестировать код", "Протестировать код подробно", TaskStatus.NEW, taskManager.getEpic(epicId1), LocalDateTime.of(2025, 1,20,16,30), Duration.ofMinutes(60));
+        Subtask subtask2 = new Subtask("Протестировать код", "Протестировать код подробно", TaskStatus.NEW, taskManager.getEpic(epicId1), LocalDateTime.of(2025, 1, 20, 16, 30), Duration.ofMinutes(60));
         taskManager.makeNewSubtask(subtask2);
         Epic epic2 = new Epic("Переезд", "Описание переезда");
         int epicId2 = taskManager.makeNewEpic(epic2);
-        Subtask subtask3 = new Subtask("Собрать коробки", "Собрать все коробки", TaskStatus.NEW, taskManager.getEpic(epicId2), LocalDateTime.of(2026, 1,20,8,30), Duration.ofMinutes(30));
+        Subtask subtask3 = new Subtask("Собрать коробки", "Собрать все коробки", TaskStatus.NEW, taskManager.getEpic(epicId2), LocalDateTime.of(2026, 1, 20, 8, 30), Duration.ofMinutes(30));
         taskManager.makeNewSubtask(subtask3);
         printAll(taskManager);
 
         //меняем задачи
-        Subtask subtask4 = new Subtask("Написать код", "Написать код подробно", TaskStatus.DONE, epic1, 4, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
+        Subtask subtask4 = new Subtask("Написать код", "Написать код подробно", TaskStatus.DONE, epic1, 4, LocalDateTime.of(2025, 1, 20, 8, 30), Duration.ofMinutes(30));
         taskManager.updateSubtask(subtask4);
-        Subtask subtask5 = new Subtask("Протестировать код", "Протестировать код подробно", TaskStatus.IN_PROGRESS, epic1, 5, LocalDateTime.of(2025, 1,22,8,30), Duration.ofMinutes(30));
+        Subtask subtask5 = new Subtask("Протестировать код", "Протестировать код подробно", TaskStatus.IN_PROGRESS, epic1, 5, LocalDateTime.of(2025, 1, 22, 8, 30), Duration.ofMinutes(30));
         taskManager.updateSubtask(subtask5);
-        Subtask subtask6 = new Subtask("Перееезд", "Сложить коробки в машину", TaskStatus.IN_PROGRESS, epic2, 8, LocalDateTime.of(2024, 1,20,8,30), Duration.ofMinutes(30));
-        taskManager.updateSubtask(subtask6);
         Epic epic3 = new Epic("Спринт 4 с изменениями", "Описание спринта +", 3);
         taskManager.updateEpic(epic3);
-        Task task3 = new Task("Составить список дел", "Первая задача с изменениями", TaskStatus.NEW, 1, LocalDateTime.of(2025, 1,20,8,30), Duration.ofMinutes(30));
+        Task task3 = new Task("Составить список дел", "Первая задача с изменениями", TaskStatus.NEW, 1, LocalDateTime.of(2025, 1, 20, 8, 30), Duration.ofMinutes(30));
         taskManager.updateTask(task3);
         System.out.println("----------------------");
         System.out.println("После обновления задач");
@@ -45,22 +42,22 @@ public class Main {
         System.out.println("----------------------");
         System.out.println("Сохранили этот результат в отдельный менеджер задач (Менеджер v2)");
 
-        //удаляем задачи
-        taskManager.removeTask(1);
-        taskManager.removeTask(10);
-        taskManager.removeSubtask(5);
-        taskManager.removeEpic(6);
-        System.out.println("----------------------");
-        System.out.println("После удаления задач");
-        printAll(taskManager);
+        if (removeTasks) {
+            taskManager.removeTask(1);
+            taskManager.removeTask(10);
+            taskManager.removeSubtask(5);
+            taskManager.removeEpic(6);
+            System.out.println("----------------------");
+            System.out.println("После удаления задач");
+            printAll(taskManager);
 
-        //очищаем задачи и подзадачи
-        taskManager.clearTasks();
-        taskManager.clearSubtasks();
-        System.out.println("----------------------");
-        System.out.println("После удаления всех задач и подзадач");
-        printAll(taskManager);
-
+            //очищаем задачи и подзадачи
+            taskManager.clearTasks();
+            taskManager.clearSubtasks();
+            System.out.println("----------------------");
+            System.out.println("После удаления всех задач и подзадач");
+            printAll(taskManager);
+        }
         //печатаем задачи из менеджера, сохраненного из файла
         System.out.println("----------------------");
         System.out.println("Выводим задачи, сохраненные в Менеджер v2");
@@ -89,8 +86,8 @@ public class Main {
 
         System.out.println("История:");
         for (Task task : taskManager.getHistory()) {
-                System.out.println(task);
-            }
+            System.out.println(task);
+        }
 
         System.out.println("Приоритеты:");
         for (Task task : taskManager.getPrioritizedTasks()) {

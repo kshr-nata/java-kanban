@@ -52,5 +52,7 @@ public interface TaskManager {
     List<Subtask> getSubtasksByEpic(Epic epic);
 
     Set<Task> getPrioritizedTasks();
+
+    boolean isTaskIntersection(Task task);
 }
 

@@ -119,6 +119,11 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         return super.getPrioritizedTasks();
     }
 
+    @Override
+    public boolean isTaskIntersection(Task task) {
+        return super.isTaskIntersection(task);
+    }
+
     public static FileBackedTaskManager loadFromFile(File file) throws ManagerLoadFromFileException {
         final FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
         try {
@@ -133,7 +138,6 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         } catch (IOException ex) {
             throw new ManagerLoadFromFileException("Ошибка чтения из файла", ex);
         }
-
         return taskManager;
     }
 
@@ -172,7 +176,8 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
             if (task.getStartTime() != null) {
                 prioritizedTasks.add(task);
             }
-            Epic epic = ((Subtask) task).getEpic();
+            int epicId = ((Subtask) task).getEpicId();
+            Epic epic = getEpic(epicId);
             epic.addSubtaskToEpic((Subtask) task);
         }
     }
@@ -217,7 +222,7 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
         String taskString = task.getId() + "," + task.getType() + "," + task.getName() + "," + task.getStatus() + ","
                 + task.getDescription() + "," + startTime + "," + task.getDuration().toMinutes();
         if (task.getType() == TaskType.SUBTASK) {
-            taskString = taskString + "," + ((Subtask) task).getEpic().getId();
+            taskString = taskString + "," + ((Subtask) task).getEpicId();
         }
         return taskString;
     }
@@ -240,7 +245,7 @@ public class FileBackedTaskManager extends  InMemoryTaskManager {
             }
             final int epicId = Integer.parseInt(values[7]);
             LocalDateTime startTime = null;
-            if (! values[5].isEmpty()) {
+            if (!values[5].isEmpty()) {
                 startTime = LocalDateTime.parse(values[5], formatter);
             }
             return new Subtask(values[2], values[4], TaskStatus.valueOf(values[3]), taskManager.getEpic(epicId), id, startTime, Duration.ofMinutes(Integer.parseInt(values[6])));
